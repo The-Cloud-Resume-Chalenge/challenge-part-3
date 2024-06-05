@@ -8,6 +8,13 @@ update_json() {
     jq --arg key "$key" --arg val "$value" '(.[$key]) = $val' $CONFIG_FILE > temp.$$.json && mv temp.$$.json $CONFIG_FILE
 }
 
+# Function to update JSON values, where the value is a raw JSON rather than a string
+update_dns() {
+    key="$1"
+    value="$2"
+    jq --arg key "$key" --argjson val "$value" '(.[$key]) = $val' $CONFIG_FILE > temp.$$.json && mv temp.$$.json $CONFIG_FILE
+}
+
 # Function to update use_aws_profile based on if the user provided a profile or access key
 update_use_aws_profile() {
     if [ -n "$1" ]; then
@@ -186,16 +193,22 @@ else
 fi
 
 dns_value=$(jq -r ".dns" $CONFIG_FILE)
-# Convert the current dns_cors values into a comma-separated string
-current_dns_cors=$(jq -r '.dns_cors | join(",")' $CONFIG_FILE)
 
-# This will add the "https://" prefix if it's required
-full_dns_value="https://$dns_value"
+# Check if the dns_value is not empty
+if [[ -n "$dns_value" ]]; then
+    # Read the current dns_cors values
+    current_dns_cors=$(jq '.dns_cors' $CONFIG_FILE)
 
-# Check if dns_value is within the current dns_cors array
-if [[ $current_dns_cors != *"$full_dns_value"* ]]; then
-    # Call update_json to replace the entire array with the new fully qualified DNS value
-    update_json "dns_cors" "$full_dns_value"
+    # This will add the "https://" prefix if it's required
+    full_dns_value="https://$dns_value"
+
+    # Append the new value if it is not already in the array
+    if ! $(echo $current_dns_cors | jq --arg v "$full_dns_value" 'index($v)'); then
+        updated_dns_cors=$(echo $current_dns_cors | jq --arg v "$full_dns_value" '. + [ $v ]')
+
+        # Call update_json with the newly constructed JSON array
+        update_json "dns_cors" "$updated_dns_cors"
+    fi
 fi
 
 echo "Configuration update complete."

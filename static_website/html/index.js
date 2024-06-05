@@ -1,6 +1,6 @@
 async function get_visitors() {
     try {
-        let apiUrl = 'https://hs00sq9jm9.execute-api.us-east-1.amazonaws.com/api-stage/visitor'; // Placeholder
+        let apiUrl = '%%API_ENDPOINT%%'; // Placeholder
         let response = await fetch(`${apiUrl}`, {
             method: 'GET',
         });

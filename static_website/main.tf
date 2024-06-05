@@ -5,7 +5,6 @@ resource "aws_s3_bucket" "majid" {
 
 
   depends_on = [
-    aws_apigatewayv2_stage.lambda,
     aws_lambda_function.lambda
   ]
 }

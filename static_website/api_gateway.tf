@@ -3,7 +3,7 @@ resource "aws_apigatewayv2_api" "lambda" {
   name          = "serverless_lambda_gw"
   protocol_type = "HTTP"
   cors_configuration {
-    allow_origins     = var.dns_cors
+    allow_origins     = var.custom_domain_exists ? var.dns_cors : ["https://${aws_cloudfront_distribution.product_s3_distribution.domain_name}"]
     allow_headers     = []
     allow_methods     = []
     expose_headers    = []
@@ -39,7 +39,7 @@ resource "aws_apigatewayv2_route" "visitors" {
   provider = aws.abd
   api_id   = aws_apigatewayv2_api.lambda.id
 
-  route_key = "ANY /${aws_lambda_function.lambda.function_name}" // Add '/visitor' to the route
+  route_key = "ANY /${aws_lambda_function.lambda.function_name}" 
   target    = "integrations/${aws_apigatewayv2_integration.visitors.id}"
 }
 
