@@ -4,11 +4,13 @@ Take your cloud resume to the next level in Part 2 of the Cloud Resume Challenge
 
 You'll find a complete guide on my [blog post](https://devopsmajid.hashnode.dev/cloud-resume-challenge-part-3).
 
-![Architecture Image](./images/architecture.png)
+![Blog image](./images/aws.png)
 
 
 Welcome to Part 3 of the Cloud Resume Challenge. This repository connects the visitor count feature. We will use the previousely created infrastructure to complete this step.
-Automate and showcase your visitor count feature without hassle by following these simple steps:
+
+## Architecture
+![Architecture Image](./images/architecture.png)
 
 
 ## Prerequisites
