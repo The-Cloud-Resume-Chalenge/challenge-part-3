@@ -7,14 +7,15 @@ You'll find a complete guide on my [blog post](https://devopsmajid.hashnode.dev/
 ![Blog image](./images/aws.png)
 
 
-Welcome to Part 3 of the Cloud Resume Challenge. This repository connects the visitor count feature. We will use the previousely created infrastructure to complete this step.
+Welcome to Part 3 of the Cloud Resume Challenge. This repository connects the visitor count feature. We will use the previousely created infrastructure.
 
 ## Architecture
 ![Architecture Image](./images/architecture.png)
 
 
 ## Prerequisites
-
+- An AWS account's identity (user or role) with adequate permissions to interact with S3, Route 53, AWS Certificate Manager, and CloudFront.
+- If you plan to use a custom domain, it must be previously registered as this is not automated in the script.
 - AWS account with permissions to work with DynamoDB, Lambda, and API Gateway.
 - Terraform already set up and ready to go.
 
