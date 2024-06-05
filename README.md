@@ -1,4 +1,4 @@
-# Cloud Resume Challenge Part 2 - Visitor Traffic Tracking
+# Cloud Resume Challenge Part 3 - Connecting Back-end with the Front-end
 Take your cloud resume to the next level in Part 2 of the Cloud Resume Challenge. If you're catching up, start with [Part 2](https://devopsmajid.hashnode.dev/cloud-resume-challenge-part-2) where we set up a back-end visitor counter on AWS. Now, let's connect our code to the back-end.
 
 
