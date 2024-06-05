@@ -207,7 +207,7 @@ if [[ -n "$dns_value" ]]; then
         updated_dns_cors=$(echo $current_dns_cors | jq --arg v "$full_dns_value" '. + [ $v ]')
 
         # Call update_json with the newly constructed JSON array
-        update_json "dns_cors" "$updated_dns_cors"
+        update_dns "dns_cors" "$updated_dns_cors"
     fi
 fi
 

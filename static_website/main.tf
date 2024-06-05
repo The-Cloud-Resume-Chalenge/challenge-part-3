@@ -2,11 +2,6 @@ resource "aws_s3_bucket" "majid" {
   bucket        = var.dns
   provider      = aws.abd
   force_destroy = true
-
-
-  depends_on = [
-    aws_lambda_function.lambda
-  ]
 }
 
 resource "aws_s3_bucket_versioning" "versioning_example" {
@@ -61,7 +56,6 @@ resource "aws_s3_object" "provision_source_files" {
   provider = aws.abd
   bucket   = aws_s3_bucket.majid.id
   for_each = fileset("html/", "*.{html,css,jpg,png,js}")
-
   key = each.value
 
   source = "html/${each.value}"
@@ -76,4 +70,8 @@ resource "aws_s3_object" "provision_source_files" {
     }[split(".", each.value)[length(split(".", each.value)) - 1]],
     "application/octet-stream"
   )
+
+  depends_on = [
+    null_resource.update_index_js
+  ]
 }
